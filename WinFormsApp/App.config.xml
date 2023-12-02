@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+	<connectionStrings>
+		<add name="DatabaseConnectionString" connectionString= "Data Source=KYLENUNND4C4;Initial Catalog=SensorSystems;Integrated Security=True;TrustServerCertificate=True" providerName="System.Data.SqlClient" />
+	</connectionStrings>
+</configuration>
+
+
+
