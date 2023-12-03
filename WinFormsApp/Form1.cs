@@ -1,11 +1,18 @@
+using System;
 using Microsoft.Data.SqlClient;
 using System.Configuration;
+using System.Data.SqlClient;
+using System.Windows.Forms;
+
+// using Microsoft.Extensions.Configuration;
+
 
 namespace WinFormsApp
 
 {
     public partial class Form : System.Windows.Forms.Form
     {
+        System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection(@"Data Source=KYLENUNND4C4;Initial Catalog=SensorSystems;Integrated Security=True");
         public Form()
         {
             InitializeComponent();
@@ -23,18 +30,37 @@ namespace WinFormsApp
 
         private void saveButton_Click(object sender, EventArgs e)
         {
-            // string connectionString = "Data Source=KYLENUNND4C4;Initial Catalog=SensorSystems;Integrated Security=True;TrustServerCertificate=True";
-            // The above code is "hardcodin"g the connection string. We are going to create a connection string with the App.config file below.
-            string connectionString = ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString;
+            /* string sensorName, sensorType;
 
+            sensorName = sensorNameValue.Text;
+            sensorType = sensorTypeValue.Text;
+
+            try
+            {
+                string sqlQuery = "INSERT INTO SENSOR (SensorName, SensorType) VALUES (" + "'" + sensorNameValue.Text + "'" + "," + "'" + sensorTypeValue.Text + "'" + ")";
+                System.Data.SqlClient.SqlCommand sc = new System.Data.SqlClient.SqlCommand(sqlQuery, conn);
+            }
+            catch
+            {
+                MessageBox.Show("Error");
+
+            }
+            finally
+            {
+                conn.Close();
+            } */
+            
+            System.Data.SqlClient.SqlConnection conn = new System.Data.SqlClient.SqlConnection(@"Data Source=KYLENUNND4C4;Initial Catalog=SensorSystems;Integrated Security=True");
             string sqlQuery = "INSERT INTO SENSOR (SensorName, SensorType) VALUES (" + "'" + sensorNameValue.Text + "'" + "," + "'" + sensorTypeValue.Text + "'" + ")";
+            
 
-            SqlConnection con = new SqlConnection(connectionString);
-
-            con.Open();
-            SqlCommand sc = new SqlCommand(sqlQuery, con);
+            conn.Open();
+            System.Data.SqlClient.SqlCommand sc = new System.Data.SqlClient.SqlCommand(sqlQuery, conn);
+           
+            
             sc.ExecuteNonQuery();
-            con.Close();
+            conn.Close();
+
 
             // Above in the connection string, we have set the TrustServerCertificate to true, but this is bad practice.
             // SQL Server books online under the topic of "Encryption Hierarchy", and "Using Encryption Without Validation".
